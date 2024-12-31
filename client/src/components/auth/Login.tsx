@@ -33,17 +33,14 @@ export default function Login() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["authentication"],
     mutationFn: async (user: LoginUser) => {
-      const { data } = await accountApi.post("/authorize", user);
-      const { data: loggedinUser } = await accountApi.post(
-        "/authenticate",
-        user
-      );
-      dispatch(setUser(loggedinUser));
+      const { data } = await accountApi.post("/login/", user);
+      const { data: loggedinUser } = await accountApi.get("/");
+      dispatch(setUser(loggedinUser.user));
       return data;
     },
     onSuccess: (data) => {
       toast({
-        title: data.message || "check your email and verify account",
+        title: data.message || "Login success",
         status: "success",
         duration: 1500,
         isClosable: true,
@@ -84,7 +81,8 @@ export default function Login() {
                   )}
                   <label
                     htmlFor="email"
-                    className="block text-gray-100 text-sm font-bold mb-2">
+                    className="block text-gray-100 text-sm font-bold mb-2"
+                  >
                     Email
                   </label>
 
@@ -102,7 +100,8 @@ export default function Login() {
 
                   <label
                     htmlFor="password"
-                    className="block text-gray-100 text-sm font-bold mb-2">
+                    className="block text-gray-100 text-sm font-bold mb-2"
+                  >
                     Password
                   </label>
                   <input
@@ -115,7 +114,8 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="w-full disabled:bg-blue-300 font-bold bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                  className="w-full disabled:bg-blue-300 font-bold bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                >
                   Login
                 </button>
                 <p className="text-[17px] font-bold font-JetBrains text-center mt-4">
@@ -125,7 +125,8 @@ export default function Login() {
                     onClick={() => {
                       dispatch(setAuth("register"));
                       onClose();
-                    }}>
+                    }}
+                  >
                     Register
                   </span>
                 </p>

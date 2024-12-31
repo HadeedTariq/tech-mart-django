@@ -31,8 +31,8 @@ const App = () => {
   useQuery({
     queryKey: ["authentication"],
     queryFn: async () => {
-      const { data } = await accountApi.post("/authenticate");
-      dispatch(setUser(data));
+      const { data } = await accountApi.get("/");
+      dispatch(setUser(data.user));
       return null;
     },
   });
@@ -73,7 +73,8 @@ const App = () => {
           <AdminProtectedRoute>
             <AdminHeader />
           </AdminProtectedRoute>
-        }>
+        }
+      >
         <Route index element={<AdminHome />} />
         <Route path="notifications" element={<AdminNotifications />} />
         <Route path="products" element={<AdminProducts />} />

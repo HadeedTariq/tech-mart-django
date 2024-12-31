@@ -36,7 +36,7 @@ export default function Register() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["registeration"],
     mutationFn: async (user: RegisterUser) => {
-      const { data } = await accountApi.post("/create", {
+      const { data } = await accountApi.post("/register/", {
         ...user,
         role: "user",
       });
@@ -85,7 +85,8 @@ export default function Register() {
                   )}
                   <label
                     htmlFor="name"
-                    className="block text-gray-100 text-sm font-bold mb-2">
+                    className="block text-gray-100 text-sm font-bold mb-2"
+                  >
                     Name
                   </label>
                   <input
@@ -101,7 +102,8 @@ export default function Register() {
                   )}
                   <label
                     htmlFor="email"
-                    className="block text-gray-100 text-sm font-bold mb-2">
+                    className="block text-gray-100 text-sm font-bold mb-2"
+                  >
                     Email
                   </label>
 
@@ -119,7 +121,8 @@ export default function Register() {
 
                   <label
                     htmlFor="password"
-                    className="block text-gray-100 text-sm font-bold mb-2">
+                    className="block text-gray-100 text-sm font-bold mb-2"
+                  >
                     Password
                   </label>
                   <input
@@ -132,7 +135,8 @@ export default function Register() {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="w-full disabled:bg-blue-300 font-bold bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                  className="w-full disabled:bg-blue-300 font-bold bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                >
                   Register
                 </button>
                 <p className="text-[17px] font-bold font-JetBrains text-center mt-4">
@@ -142,7 +146,8 @@ export default function Register() {
                     onClick={() => {
                       dispatch(setAuth("login"));
                       onClose();
-                    }}>
+                    }}
+                  >
                     Login
                   </span>
                 </p>

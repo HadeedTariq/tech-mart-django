@@ -40,7 +40,7 @@ const HeaderPopUp = () => {
   const { mutate } = useMutation({
     mutationKey: ["logoutUser"],
     mutationFn: async () => {
-      const { data } = await accountApi.post("/logout");
+      const { data } = await accountApi.post("/logout/");
       return data;
     },
     onSuccess: (data: { message: string }) => {
@@ -87,7 +87,8 @@ const HeaderPopUp = () => {
         bgColor={"black"}
         w={"190px"}
         margin={"0 3px"}
-        border={""}>
+        border={""}
+      >
         <PopoverArrow />
         <PopoverBody>
           {user ? (
@@ -101,14 +102,16 @@ const HeaderPopUp = () => {
                   className="text-[18px] flex items-center gap-4 font-semibold  font-Nunito hover:text-orange-400 transition-colors duration-300 cursor-pointer"
                   onClick={() => {
                     navigate("seller");
-                  }}>
+                  }}
+                >
                   <RiAdminFill size={25} />
                   Seller Panel
                 </p>
               )}
               <p
                 className="text-[18px] flex items-center gap-4 font-semibold  font-Nunito hover:text-orange-400 transition-colors duration-300 cursor-pointer"
-                onClick={onOpen}>
+                onClick={onOpen}
+              >
                 <FaOpencart size={25} />
                 My Cart
                 <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -136,7 +139,8 @@ const HeaderPopUp = () => {
               {user.role !== "seller" && user.role !== "admin" && (
                 <p
                   className="text-[18px] flex items-center gap-4 font-semibold  font-Nunito hover:text-orange-400 transition-colors duration-300 cursor-pointer"
-                  onClick={becomeSeller}>
+                  onClick={becomeSeller}
+                >
                   <CiShop size={25} />
                   Become Seller
                 </p>
@@ -144,7 +148,8 @@ const HeaderPopUp = () => {
               {user.role === "admin" && (
                 <p
                   className="text-[18px] flex items-center gap-4 font-semibold  font-Nunito hover:text-orange-400 transition-colors duration-300 cursor-pointer"
-                  onClick={() => navigate("/admin")}>
+                  onClick={() => navigate("/admin")}
+                >
                   <MdAdminPanelSettings size={25} />
                   Admin Panel
                 </p>
@@ -154,7 +159,8 @@ const HeaderPopUp = () => {
                 onClick={() => {
                   mutate();
                   dispatch(logoutUser());
-                }}>
+                }}
+              >
                 <IoMdLogOut size={25} />
                 Logout
               </p>
@@ -165,14 +171,16 @@ const HeaderPopUp = () => {
                 className="py-1 font-Fira font-[400] cursor-pointer hover:text-pink-400 text-[17px]"
                 onClick={() => {
                   dispatch(setAuth("login"));
-                }}>
+                }}
+              >
                 Login
               </p>
               <p
                 className=" py-1 font-Fira font-[400] cursor-pointer hover:text-pink-400 text-[17px]"
                 onClick={() => {
                   dispatch(setAuth("register"));
-                }}>
+                }}
+              >
                 Register
               </p>
             </div>
