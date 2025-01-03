@@ -80,7 +80,9 @@ def get_user(request):
 
 @csrf_exempt
 def logout_user(request):
+
     if request.method == "POST":
+
         response = JsonResponse({"message": "Logged out successfully"})
         response.delete_cookie("access_token")
         return response

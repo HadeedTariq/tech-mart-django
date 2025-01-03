@@ -7,7 +7,7 @@ const productValidator = z.object({
     .min(100, { message: "Must be 100 characters long" }),
   productCategory: z.enum(categories),
   productImage: z.string(),
-  productPrice: z.string(),
+  productPrice: z.number(),
   productType: z.enum(["New", "Used"]),
 });
 

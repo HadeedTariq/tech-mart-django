@@ -32,7 +32,7 @@ const CreateProduct = () => {
   const { isPending, mutate } = useMutation({
     mutationKey: ["createProduct"],
     mutationFn: async (product: Product) => {
-      const { data } = await sellerApi.post("/create", {
+      const { data } = await sellerApi.post("/create/", {
         ...product,
         productSeller: user?.id,
       });
@@ -46,7 +46,7 @@ const CreateProduct = () => {
     },
   });
   const createProduct = (product: Product) => {
-    const prod = { ...product, productPrice: `$${product.productPrice}` };
+    const prod = { ...product, productPrice: product.productPrice };
     mutate(prod);
   };
   useEffect(() => {
@@ -75,7 +75,8 @@ const CreateProduct = () => {
     <>
       <form
         onSubmit={handleSubmit(createProduct)}
-        className="flex flex-col gap-2 p-4">
+        className="flex flex-col gap-2 p-4"
+      >
         {errors.productTitle && (
           <p className="text-red-400 font-semibold font-Fira">
             {errors.productTitle.message}
@@ -95,7 +96,8 @@ const CreateProduct = () => {
         <textarea
           placeholder="Enter product description here"
           {...register("productDescription")}
-          className="mb-2 resize-none w-full font-Lato h-[300px] bg-transparent p-2 border-2 border-pink-500 rounded-sm"></textarea>
+          className="mb-2 resize-none w-full font-Lato h-[300px] bg-transparent p-2 border-2 border-pink-500 rounded-sm"
+        ></textarea>
         {errors.productCategory && (
           <p className="text-red-400 font-semibold font-Fira">
             {errors.productCategory.message}
@@ -103,12 +105,14 @@ const CreateProduct = () => {
         )}
         <select
           className="mb-2  bg-slate-700 border-2 border-gray-200 px-4 py-2 pr-8 rounded leading-tight focus:outline-none capitalize font-Lato text-[18px] cursor-pointer"
-          {...register("productCategory")}>
+          {...register("productCategory")}
+        >
           {categories.map((category, i) => (
             <option
               value={category}
               key={i}
-              className="bg-black cursor-pointer capitalize hover:bg-gray-700">
+              className="bg-black cursor-pointer capitalize hover:bg-gray-700"
+            >
               {category}
             </option>
           ))}
@@ -123,7 +127,7 @@ const CreateProduct = () => {
           type="number"
           placeholder="Enter product price in $"
           onChange={(e) => {
-            setValue("productPrice", String(e.target.value));
+            setValue("productPrice", Number(e.target.value));
           }}
         />
         {errors.productType && (
@@ -133,15 +137,18 @@ const CreateProduct = () => {
         )}
         <select
           className="mb-2  bg-slate-700 border-2 border-gray-200 px-4 py-2 pr-8 rounded leading-tight focus:outline-none capitalize font-Lato text-[18px] cursor-pointer"
-          {...register("productType")}>
+          {...register("productType")}
+        >
           <option
             value={"Used"}
-            className="bg-black cursor-pointer capitalize hover:bg-gray-700">
+            className="bg-black cursor-pointer capitalize hover:bg-gray-700"
+          >
             Used
           </option>
           <option
             value={"New"}
-            className="bg-black cursor-pointer capitalize hover:bg-gray-700">
+            className="bg-black cursor-pointer capitalize hover:bg-gray-700"
+          >
             New
           </option>
         </select>
@@ -154,7 +161,8 @@ const CreateProduct = () => {
           {!img[0] && (
             <div
               className="font-Chivo font-semibold text-[19px]"
-              {...getRootProps()}>
+              {...getRootProps()}
+            >
               {isDragActive ? (
                 <p className="text-pink-500 font-semibold font-Kanit text-2xl">
                   Drop Here{" "}
@@ -164,7 +172,8 @@ const CreateProduct = () => {
                   <span> Drag and Drop or </span>
                   <label
                     htmlFor="img"
-                    className="text-orange-500 underline hover:text-orange-400 cursor-pointer font-Fira">
+                    className="text-orange-500 underline hover:text-orange-400 cursor-pointer font-Fira"
+                  >
                     Select
                     <input
                       type="file"
@@ -193,7 +202,8 @@ const CreateProduct = () => {
         </div>
         <button
           className="bg-purple-500 py-2 px-8 font-bold font-NunitoSans text-[20px] rounded-md mx-auto disabled:bg-purple-300"
-          disabled={isPending}>
+          disabled={isPending}
+        >
           Create Product
         </button>
       </form>
